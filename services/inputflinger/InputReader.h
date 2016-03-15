@@ -144,11 +144,14 @@ struct InputReaderConfiguration {
         // The presence of an external stylus has changed.
         CHANGE_EXTERNAL_STYLUS_PRESENCE = 1 << 7,
 
+		// Swap keys changed.
+        CHANGE_SWAP_KEYS = 1 << 8,
+		
         // Volume keys rotation option changed.
-        CHANGE_VOLUME_KEYS_ROTATION = 1 << 8,
+        CHANGE_VOLUME_KEYS_ROTATION = 1 << 9,
 
         // Stylus icon option changed.
-        CHANGE_STYLUS_ICON_ENABLED = 1 << 9,
+        CHANGE_STYLUS_ICON_ENABLED = 1 << 10,
 
         // All devices must be reopened.
         CHANGE_MUST_REOPEN = 1 << 31,
@@ -237,6 +240,9 @@ struct InputReaderConfiguration {
     // True to show the location of touches on the touch screen as spots.
     bool showTouches;
 
+	// Swap back with recents button
+    bool swapKeys;
+	
     // True to show the pointer icon when a stylus is used.
     bool stylusIconEnabled;
 
@@ -264,6 +270,7 @@ struct InputReaderConfiguration {
             pointerGestureMovementSpeedRatio(0.8f),
             pointerGestureZoomSpeedRatio(0.3f),
             showTouches(false),
+			swapKeys(false),
             stylusIconEnabled(false),
             stylusPalmRejectionTime(50 * 10000000LL), // 50 ms
             volumeKeysRotationMode(0)
@@ -1157,6 +1164,8 @@ private:
     int32_t mRotationMapOffset; // determines if and how volume keys rotate
     int32_t mOrientation; // orientation for dpad and volume keys
 
+    bool mSwapKeys; // swap back with recents button
+
     Vector<KeyDown> mKeyDowns; // keys that are down
     int32_t mMetaState;
     nsecs_t mDownTime; // time of most recent key down
@@ -1186,6 +1195,8 @@ private:
     void processKey(nsecs_t when, bool down, int32_t scanCode, int32_t usageCode);
 
     bool updateMetaStateIfNeeded(int32_t keyCode, bool down);
+
+    int getAdjustedKeyCode(int keyCode);
 
     ssize_t findKeyDown(int32_t scanCode);
 
