@@ -84,14 +84,14 @@ struct InputReaderConfiguration {
         // The presence of an external stylus has changed.
         CHANGE_EXTERNAL_STYLUS_PRESENCE = 1 << 7,
 
-		// Swap keys changed.
-        CHANGE_SWAP_KEYS = 1 << 8,
-		
         // The pointer capture mode has changed.
-        CHANGE_POINTER_CAPTURE = 1 << 9,
+        CHANGE_POINTER_CAPTURE = 1 << 8,
 
         // The set of disabled input devices (disabledDevices) has changed.
         CHANGE_ENABLED_STATE = 1 << 9,
+
+        // Swap keys changed.
+        CHANGE_SWAP_KEYS = 1 << 20,
 
         // All devices must be reopened.
         CHANGE_MUST_REOPEN = 1 << 31,
